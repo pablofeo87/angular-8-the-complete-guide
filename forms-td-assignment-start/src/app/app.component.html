@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- Add a Form with the following Inputs (and Validators)
+           1) Mail address (should not be empty and should be an email address)
+           2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
+              Set "Advanced" as Default
+           3) A Password field (should not be empty)
+           4) A Submit Button
+
+           Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+
+           Upon submitting the form, you should simply print the Value of the Form to the Console.
+           Optionally, display it in your template.
+      -->
+      <form #f="ngForm" (ngSubmit)="submit()">
+        <div class="form-group">
+          <label for="email">Email: </label>
+          <input type="text" class="form-control" id="email" name="email" #email="ngModel" ngModel required email>
+          <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
+        </div>
+        <div class="form-group">
+          <label>Subscription type</label>
+          <select name="subType" id="subType" class="form-control" [ngModel]="subTypeDefault">
+            <option *ngFor="let subType of subTypes" value="{{subType}}">{{subType}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" ngModel required #password="ngModel">
+          <span class="help-block" *ngIf="!password.valid && password.touched">Please enter a valid password!</span>
+        </div>
+        <span *ngIf="!f.valid && f.touched">Form is invalid</span>
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
+
+      </form>
+    </div>
+  </div>
+</div>
